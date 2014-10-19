@@ -19,6 +19,8 @@ include: ['.htaccess']
 future: true
 show_drafts: true
 
+permalink: :title
+
 # Markdown library
 markdown: redcarpet
 #   extensions: ['fenced_code_blocks', 'smart']
