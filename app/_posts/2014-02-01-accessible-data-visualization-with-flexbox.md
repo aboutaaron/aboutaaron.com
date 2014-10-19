@@ -78,6 +78,7 @@ Unfortunately, this will mess up the `flexbox` dynamic resizing and provide less
 ![An upside down bart chart.](/img/upside_down.png)
 
 One __hacky__ way to solve this is to find the heights of the parent and child elements, subtract them from each other, and assign the difference to the `margin-top` of the child element (*using jQuery because laziness*):
+
 ```js
   var $bars = $('.timeline .bar');
 
@@ -88,6 +89,7 @@ One __hacky__ way to solve this is to find the heights of the parent and child e
     $(bar).find('.count').css('margin-top', (barHeight - countHeight));
   });
 ```
+
 This __is not__ an elegant solution, but it does solve the problem. In my experience, there isn't a huge performance hit doing this on a decent array of `div`s (I tried this on 500+ without lag), but your mileage may vary.
 
 ### Closing Thoughts

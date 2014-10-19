@@ -11,6 +11,7 @@
 
     <!-- build:css({app,.tmp}) /css/main.css -->
     <link rel="stylesheet" href="/_bower_components/normalize-css/normalize.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Open+Sans:700,400">
     <link rel="stylesheet" href="/css/main.css">
     <!-- endbuild -->
@@ -31,5 +32,15 @@
     {% include scripts.html %}
     {% include googleanalytics.html %}
 
+    <footer class="site-footer">
+      <a class="subscribe" href="http://aboutaaron.com/rss/">
+        <i class="fa fa-rss"></i>
+        <span class="tooltip">Subscribe!</span>
+      </a>
+        <div class="inner">
+          <section class="copyright">All content copyright <a href="/">Aaron Williams</a> © 2014 • All rights reserved.</section>
+          <!-- <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://ghost.org">Ghost</a></section> -->
+        </div>
+    </footer>
   </body>
 </html>
