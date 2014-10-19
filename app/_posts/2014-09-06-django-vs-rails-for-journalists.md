@@ -19,9 +19,9 @@ It's a *high-level explanation* of two frameworks to a friend. Given the interes
 If you're just starting out as a programmer, this guide probably won't help and I suggest you explore the tutorials provided by both frameworks:
 
 - [ Official Django Project Tutorial](https://docs.djangoproject.com/en/1.7/intro/tutorial01/)
-    - Chicago Tribune's Andy Boyle has a great guide to building news applications with Django. Read it!: [Andy Boyle's Django tutorials](http://www.andymboyle.com/django-tutorials/)
+  - Chicago Tribune's Andy Boyle has a great guide to building news applications with Django. Read it!: [Andy Boyle's Django tutorials](http://www.andymboyle.com/django-tutorials/)
 - [Official Ruby on Rails Guides](http://guides.rubyonrails.org/)
-    - Michael Hartl's Rails tutorial is also excellent: [Rails Tutorial](https://www.railstutorial.org/)
+  - Michael Hartl's Rails tutorial is also excellent: [Rails Tutorial](https://www.railstutorial.org/)
 
 Enjoy!
 
@@ -66,6 +66,7 @@ Well, in Rails, there are no *apps*. Your models are the main attraction and eac
 So looking here https://github.com/aboutaaron/fire-scraper/tree/api/app/models you can see that Counties and Fires, my models, get their own files. And so your foreign keys happen in the appropriate files. In this case, a County `:has_many` Fires and all Fires `:belongs_to` a County.
 
 `app/models/county.rb`
+
 ```rb
 class County < ActiveRecord::Base
   extend FriendlyId
@@ -85,7 +86,9 @@ class County < ActiveRecord::Base
   end
 end
 ```
+
 `app/models/fire.rb`
+
 ```rb
 class Fire < ActiveRecord::Base
   attr_accessible :acreage, :containment, :date, :location, :name, :county_id, :active
@@ -108,26 +111,29 @@ So in Django, you usually have the `views.py` that takes a your model and attach
 Well, in Rails the `views.py` equivalent are your `Controller` files. Located in `app/controllers/` these files will move your model data to your templates.
 
 https://github.com/aboutaaron/fire-scraper/blob/api/app/controllers/counties_controller.rb
-```rb
-  def index
-    @counties = County.all
 
-    respond_to do |format|
-      format.json { render }
-    end
+```rb
+def index
+  @counties = County.all
+
+  respond_to do |format|
+    format.json { render }
   end
+end
 ```
 
 So here, you can see that the `def index` method represents the URL path. We're grabbng all the counties and storing them in the `@counties` instance variable (instance variables have an @ in front of them and basically act as class level attributes) and then we have a block (HUGE thing in Ruby) to say what format this data should be represented in. So, in the example above, when a user hits the counties index page, I want to return a representation of the data as JSON. If I wanted to return the data as HTML I could've also written it like this:
-```rb
-  def index
-    @counties = County.all
 
-    respond_to do |format|
-      format.html
-    end
+```rb
+def index
+  @counties = County.all
+
+  respond_to do |format|
+    format.html
   end
+end
 ```
+
 You can, of course, have HTML and JSON. See an example of this in the `master` branch of the repo: https://github.com/aboutaaron/fire-scraper/blob/master/app/controllers/counties_controller.rb
 
 But the idea is that your have a __PER__ model `model_name.rb` file and a __per__ model `model_name_controller.rb` file.
@@ -151,6 +157,7 @@ Boom our URL is humming. This is why Rails is powerful (and scary). With very li
 OK, so models and controllers are defined and we have routes setup to talk to the appropriate controllers. Where do we put our templates? In Rails, templates are called `views` so we check `app/views/`. Again, like everything in Rails, the folders and files are on a __per__ model basis. Rails uses a file type called ERB which stands for **E** mbedded **R** u **B** y. So when Rails sees `index.html.erb`, it knows it can add Ruby data and objects to the document. Typically your model's views (or templates in Django parlance) will have a index.html.erb (think a list view in Django) and a show.html.erb (Think a detail view). So one shows all your models and the other shows what happens you click on a specific instance of a model. See: https://github.com/aboutaaron/fire-scraper/blob/master/app/views/counties/show.html.erb
 
 `/counties/show.html.erb`
+
 ```erb
 <!-- truncated output -->
 <h2><%= @county.name %> County</h2>
@@ -176,6 +183,7 @@ OK, so models and controllers are defined and we have routes setup to talk to th
   </tbody>
 </table>
 ```
+
 Hopefully this .erb makes sense. I'm grabbing this instance of the county and using ERB template tags `<%= %>` to display info from my model in the HTML. This should feel familiar to the Django dev used to using `{{ }}` to insert data into templates
 
 ## Fab/Management Commands
@@ -185,6 +193,7 @@ So for my app, I had to write a scraper to collect wildfire information from CAL
 
 ### Rake
 So for Rails, rather than have management commands or fab tasks, everything happens with [Rake](https://github.com/jimweirich/rake). Rake, which stands for Ruby Make, allows you to setup tasks to run either view the command line or via CRON. That's entirely up to you. Your tasks live in `lib/tasks/`. The `lib` directory is basically where you store your Ruby code or stuff that isn't super Rails specific. Think of this place of where you might keep a `load.rb` file. So I have a `populate.rb` that does my scraping. Here it is:
+
 ```rb
 require 'mechanize'
 
@@ -218,7 +227,6 @@ namespace :app do
   end
 end
 ```
-
 
 I won't do a huge primer on Rake, but basically I've named spaced this task to `:app`. This is just for organization. I could also have a `:deploy` namespace if I wanted stuff just for launch. I then describe that the tasks does and in the `tasks` method I give my task a name like `:import`  and use the rocket operator to have Rake include my app's `:environment`. This is what gives me access to my models.
 
