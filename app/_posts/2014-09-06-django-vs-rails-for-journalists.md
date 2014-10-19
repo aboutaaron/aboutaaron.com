@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Django to Rails - A selective guide in their differences for data journalists"
+excerpt: "While there are a billion Django Vs. Ruby guides on the Internet, there wasn't one tailored toward data journalist and news app developers. So what follows is a drive-by walkthrough of the frameworks with many off-the-top explanations of their concepts."
 ---
 
 A former colleague and great friend of mine, Agustin Armendariz, recently joined the The New York Times to do some amazing investigative data reporting.
