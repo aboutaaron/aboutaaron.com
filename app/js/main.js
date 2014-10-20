@@ -1,123 +1,160 @@
-var App = App || {};
-var container, stats;
-var camera, scene, renderer, particles, geometry, materials = [], parameters, i, h, color;
+var container = document.getElementById('site-head');
+var camera, scene, renderer, particle;
 var mouseX = 0, mouseY = 0;
+var windowHalfX = container.offsetWidth / 2;
+var windowHalfY = container.offsetHeight / 2;
 
-var windowHalfX = $('#site-head').width() / 2;
-var windowHalfY = $('#site-head').height() / 2;
-var animate =  function () {
-    requestAnimationFrame( animate );
-    App.render();
-};
+init();
+animate();
 
-App = {
-    blastoff: function  () {
-        this.init();
-        animate();
-    },
-    init: function () {
-        var self = this;
+function init() {
 
-        container = document.querySelector('#site-head');
+    camera = new THREE.PerspectiveCamera( 75, container.offsetWidth / container.offsetHeight, 1, 5000 );
+    camera.position.z = 1000;
 
-        camera = new THREE.PerspectiveCamera( 75, $('#site-head').width() / $('#site-head').height(), 1, 3000 );
-        camera.position.z = 1000;
+    scene = new THREE.Scene();
 
-        scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
+    var material = new THREE.SpriteMaterial( {
+        map: new THREE.Texture( generateSprite() ),
+        blending: THREE.AdditiveBlending
+    } );
 
-        geometry = new THREE.Geometry();
+    for ( var i = 0; i < 1000; i++ ) {
 
-        for ( i = 0; i < 20000; i ++ ) {
+        particle = new THREE.Sprite( material );
 
-            var vertex = new THREE.Vector3();
-            vertex.x = Math.random() * 2000 - 1000;
-            vertex.y = Math.random() * 2000 - 1000;
-            vertex.z = Math.random() * 2000 - 1000;
+        initParticle( particle, i * 10 );
 
-            geometry.vertices.push( vertex );
+        scene.add( particle );
+    }
 
-        }
+    renderer = new THREE.CanvasRenderer();
+    renderer.setClearColor( 0x000040 );
+    renderer.setSize( container.offsetWidth, container.offsetHeight );
+    container.appendChild( renderer.domElement );
 
-        parameters = [
-            [ [1, 1, 0.5], 5 ],
-            [ [0.95, 1, 0.5], 4 ],
-            [ [0.90, 1, 0.5], 3 ],
-            [ [0.85, 1, 0.5], 2 ],
-            [ [0.80, 1, 0.5], 1 ]
-        ];
+    // stats = new Stats();
+    // stats.domElement.style.position = 'absolute';
+    // stats.domElement.style.top = '0px';
+    // container.appendChild( stats.domElement );
 
-        for ( i = 0; i < parameters.length; i ++ ) {
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    // document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+    // document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 
-            color = parameters[i][0];
-            var size  = parameters[i][1];
+    // //
 
-            materials[i] = new THREE.PointCloudMaterial( { size: size } );
+    window.addEventListener( 'resize', onWindowResize, false );
 
-            particles = new THREE.PointCloud( geometry, materials[i] );
-
-            particles.rotation.x = Math.random() * 6;
-            particles.rotation.y = Math.random() * 6;
-            particles.rotation.z = Math.random() * 6;
-
-            scene.add( particles );
-
-        }
-
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize( $('#site-head').width(), $('#site-head').height() );
-        container.appendChild( renderer.domElement );
-        $('canvas').addClass('three-js');
-
-        document.addEventListener( 'mousemove', self.onDocumentMouseMove, false );
-        window.addEventListener( 'resize', self.onWindowResize, false );
-    },
-    render: function () {
-        var time = Date.now() * 0.00005;
-
-        camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-        camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-
-        camera.lookAt( scene.position );
-
-        for ( i = 0; i < scene.children.length; i ++ ) {
-
-            var object = scene.children[ i ];
-
-            if ( object instanceof THREE.PointCloud ) {
-
-                object.rotation.y = time * ( i < 4 ? i + 1 : - ( i + 1 ) );
-
-            }
-
-        }
-
-        for ( i = 0; i < materials.length; i ++ ) {
-
-            color = parameters[i][0];
-
-            h = ( 360 * ( color[0] + time ) % 360 ) / 360;
-            materials[i].color.setHSL( h, color[1], color[2] );
-
-        }
-
-        renderer.render( scene, camera );
-    },
-    onWindowResize: function () {
-        windowHalfX = $('#site-head').width() / 2;
-        windowHalfY = $('#site-head').height() / 2;
-
-        camera.aspect = $('#site-head').width() / $('#site-head').height();
-        camera.updateProjectionMatrix();
-
-        renderer.setSize( $('#site-head').width(), $('#site-head').height() );
-    },
-    onDocumentMouseMove: function (event ) {
-        mouseX = event.clientX - windowHalfX;
-        mouseY = event.clientY - windowHalfY;
-    },
 }
 
-jQuery(document).ready(function($) {
-    App.blastoff();
-});
+function onWindowResize() {
+
+    windowHalfX = container.offsetWidth / 2;
+    windowHalfY = container.offsetHeight / 2;
+
+    camera.aspect = container.offsetWidth / container.offsetHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( container.offsetWidth, container.offsetHeight );
+
+}
+
+function generateSprite() {
+
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 16;
+    canvas.height = 16;
+
+    var context = canvas.getContext( '2d' );
+    var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+    gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+    gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+    gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+    gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+
+    context.fillStyle = gradient;
+    context.fillRect( 0, 0, canvas.width, canvas.height );
+
+    return canvas;
+
+}
+
+function initParticle( particle, delay ) {
+
+    var particle = this instanceof THREE.Sprite ? this : particle;
+    var delay = delay !== undefined ? delay : 0;
+
+    particle.position.set( 0, 0, 0 )
+    particle.scale.x = particle.scale.y = Math.random() * 32 + 16;
+
+    new TWEEN.Tween( particle )
+        .delay( delay )
+        .to( {}, 10000 )
+        .onComplete( initParticle )
+        .start();
+
+    new TWEEN.Tween( particle.position )
+        .delay( delay )
+        .to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+        .start();
+
+    new TWEEN.Tween( particle.scale )
+        .delay( delay )
+        .to( { x: 0, y: 0 }, 10000 )
+        .start();
+
+}
+
+//
+
+function onDocumentMouseMove( event ) {
+
+    mouseX = event.clientX - windowHalfX;
+    mouseY = event.clientY - windowHalfY;
+}
+
+function onDocumentTouchStart( event ) {
+
+    if ( event.touches.length == 1 ) {
+
+        event.preventDefault();
+
+        mouseX = event.touches[ 0 ].pageX - windowHalfX;
+        mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+    }
+
+}
+
+function onDocumentTouchMove( event ) {
+
+    if ( event.touches.length == 1 ) {
+
+        event.preventDefault();
+
+        mouseX = event.touches[ 0 ].pageX - windowHalfX;
+        mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+    }
+
+}
+
+//
+
+function animate() {
+    requestAnimationFrame( animate );
+    render();
+}
+
+function render() {
+
+    TWEEN.update();
+
+    camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+    camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+    camera.lookAt( scene.position );
+
+    renderer.render( scene, camera );
+
+}

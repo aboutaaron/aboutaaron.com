@@ -5,6 +5,7 @@ html {
   max-height: 100%;
   font-size: 62.5%;
   background-color: white;
+  //overflow-x: hidden;
 }
 
 body {
@@ -258,6 +259,51 @@ tbody > tr:nth-child(odd) > th {
   background: transparent;
 }
 
+/* Creates a responsive wrapper that makes our content scale nicely */
+.inner {
+  position: relative;
+  width: 80%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Centres vertically yo. (IE8+) */
+.vertical {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-description {
+  margin: 0;
+  font-size: 1.8rem;
+  line-height: 1.5em;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+#blog-logo {
+  img {
+    display: block;
+    max-height: 150px;
+    border-radius: 50%;
+    width: auto;
+    margin: 5rem auto 3rem;
+    line-height: 0;
+
+    &:active {
+      position: relative;
+      top: 2px;
+    }
+  }
+}
 
 #site-head {
   position: relative;
