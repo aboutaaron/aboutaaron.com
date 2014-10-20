@@ -255,7 +255,8 @@ module.exports = function (grunt) {
             // Like Jekyll, exclude files & folders prefixed with an underscore.
             '!**/_*{,/**}',
             // Explicitly add any files your site needs for distribution here.
-            '_bower_components/jquery/jquery.js',
+            '_bower_components/tweenjs/src/Tween.js',
+            '_bower_components/threejs/build/three.js',
             'favicon.ico',
             'apple-touch*.png'
           ],
@@ -301,7 +302,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        ignores: ['<%= yeoman.app %>/js/main.js']
       },
       all: [
         'Gruntfile.js',
@@ -365,7 +367,7 @@ module.exports = function (grunt) {
     'jekyll:check',
     'sass:server',
     'jshint:all',
-    'csslint:check'
+    //'csslint:check'
   ]);
 
   grunt.registerTask('build', [
