@@ -260,8 +260,36 @@ time {
 
 // Posts
 
-.posts a {
-    text-decoration: none;
+.posts {
+  a { text-decoration: none; }
+
+  .post:after {
+    display: block;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: #E7EEF2 1px solid;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left: -5px;
+    background: #fff;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    box-shadow: #fff 0 0 0 5px;
+  }
+  
+  .post {
+    position: relative;
+    //width: 80%;
+    max-width: 700px;
+    margin: 4rem auto;
+    padding-bottom: 4rem;
+    border-bottom: #EBF2F6 1px solid;
+    word-break: break-word;
+    hyphens: auto;
+  }
 }
 
 .post-title {
@@ -269,33 +297,6 @@ time {
   word-wrap: break-word;
 }
 
-.post {
-  position: relative;
-  //width: 80%;
-  max-width: 700px;
-  margin: 4rem auto;
-  padding-bottom: 4rem;
-  border-bottom: #EBF2F6 1px solid;
-  word-break: break-word;
-  hyphens: auto;
-}
-
-.post:after {
-  display: block;
-  content: "";
-  width: 7px;
-  height: 7px;
-  border: #E7EEF2 1px solid;
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  margin-left: -5px;
-  background: #fff;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  box-shadow: #fff 0 0 0 5px;
-}
 
 // Footer
 
@@ -453,4 +454,154 @@ img {
   margin: 0 auto;
   float: none;
   width: $full - 50;
+}
+
+/* ==========================================================================
+   9. Media Queries - Smaller than 900px
+   ========================================================================== */
+@media only screen and (max-width: 1200px) {
+  .bit-50 { width: $full - 25; }
+}
+
+@media only screen and (max-width: 900px) {
+
+  blockquote {
+    margin-left: 0;
+  }
+
+  #site-head {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 240px;
+    overflow: hidden;
+  }
+
+  .blog-title {
+    font-size: 4rem;
+    letter-spacing: -1px;
+  }
+
+  .blog-description {
+    font-size: 1.7rem;
+    line-height: 1.5em;
+  }
+
+  .post {
+    font-size: 0.9em;
+    line-height: 1.6em;
+  }
+
+  .post-template .post {
+    padding-bottom: 1rem;
+  }
+  .post-template .post-header {
+    padding: 40px 0;
+  }
+
+  h1 {
+    font-size: 4.8rem;
+    text-indent: -2px;
+  }
+
+  h2 {
+    font-size: 3.8rem;
+  }
+
+  h3 {
+    font-size: 3.3rem;
+  }
+
+  h4 {
+    font-size: 2.8rem;
+  }
+}
+/* ==========================================================================
+   10. Media Queries - Smaller than 500px
+   ========================================================================== */
+@media only screen and (max-width: 500px) {
+  .bit-50 { width: $full; }
+
+  #blog-logo img {
+    max-height: 80px;
+  }
+
+  .inner, .pagination {
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .post {
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 0.8em;
+    line-height: 1.6em;
+  }
+
+  .blog-title {
+    font-size: 3rem;
+  }
+
+  .blog-description {
+    font-size: 1.5rem;
+  }
+
+  h1, h2 {
+    font-size: 3rem;
+    line-height: 1.1em;
+    letter-spacing: -1px;
+  }
+
+  h3 {
+    font-size: 2.8rem;
+  }
+
+  h4 {
+    font-size: 2.3rem;
+  }
+
+  .post-template .post {
+    padding-bottom: 0;
+  }
+  .post-template .post-header {
+    padding: 30px 0;
+  }
+
+  .post-meta {
+    font-size: 1.3rem;
+  }
+
+  .post-footer {
+    padding: 4rem 0;
+    text-align: center;
+  }
+  .post-footer .author {
+    margin: 0 0 2rem 0;
+    padding: 0 0 1.6rem 0;
+    border-bottom: #EBF2F6 1px dashed;
+  }
+  .post-footer .share {
+    position: static;
+    width: auto;
+  }
+  .post-footer .share a {
+    margin: 1.4rem 0.8rem 0 0.8rem;
+  }
+
+  .older-posts, .newer-posts {
+    position: static;
+    margin: 10px 0;
+  }
+
+  .page-number {
+    display: block;
+  }
+
+  .site-footer {
+    margin-top: 6rem;
+    font-size: 1.1rem;
+  }
 }

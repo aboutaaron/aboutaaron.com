@@ -184,7 +184,7 @@ OK, so models and controllers are defined and we have routes setup to talk to th
 </table>
 ```
 
-Hopefully this .erb makes sense. I'm grabbing this instance of the county and using ERB template tags `<%= %>` to display info from my model in the HTML. This should feel familiar to the Django dev used to using `{{ }}` to insert data into templates
+Hopefully this .erb makes sense. I'm grabbing this instance of the county and using ERB template tags `<%= %>` to display info from my model in the HTML. This should feel familiar to the Django dev used to using `{ {  } }` to insert data into templates
 
 ## Fab/Management Commands
 OK so finally, you probably want to know where you can do the **data** part of the app building. By now, I hope it makes sense how Rails and Django are similar and different. You should more or less get how models look, what controllers do and how all of that communicates with your views. But let's get to the fun part.
