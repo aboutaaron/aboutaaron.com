@@ -1,4 +1,5 @@
 // Base Styles
+
 html {
   height: 100%;
   max-height: 100%;
@@ -61,9 +62,9 @@ h6 {
 a {
   color: #4a4a4a;
   transition: color ease 0.3s;
-}
-a:hover {
-  color: #1caf9a;
+  &:hover {
+    color: #1caf9a;
+  }
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -76,13 +77,15 @@ p, ul {
 
 ol {
   margin: 1.6em 0;
-}
-ol ol {
-  margin: 0.4em 0;
+  ol {
+    margin: 0.4em 0;
+  }
 }
 
-ul ul, ul ol {
-  margin: 0.4em 1.4em;
+ul {
+  ul, ol {
+    margin: 0.4em 1.4em;
+  }
 }
 
 ol ul {
@@ -104,44 +107,44 @@ blockquote {
   margin: 1.6em 0 1.6em -2.2em;
   padding: 0 0 0 1.6em;
   border-left: #4a4a4a 0.4em solid;
-}
-blockquote p {
-  margin: 0.8em 0;
-  font-style: italic;
-}
-blockquote small {
-  display: inline-block;
-  margin: 0.8em 0 0.8em 1.5em;
-  font-size: 0.9em;
-  color: #ccc;
-}
-blockquote small:before {
-  content: '\2014 \00A0';
-}
-blockquote cite {
-  font-weight: bold;
-}
-blockquote cite a {
-  font-weight: normal;
+  p {
+    margin: 0.8em 0;
+    font-style: italic;
+  }
+  small {
+    display: inline-block;
+    margin: 0.8em 0 0.8em 1.5em;
+    font-size: 0.9em;
+    color: #ccc;
+    &:before {
+      content: '\2014 \00A0';
+    }
+  }
+  cite {
+    font-weight: bold;
+    a {
+      font-weight: normal;
+    }
+  }
 }
 
 dl {
   margin: 1.6em 0;
-}
-dl dt {
-  float: left;
-  width: 180px;
-  overflow: hidden;
-  clear: left;
-  text-align: right;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-dl dd {
-  margin-left: 200px;
-  margin-bottom: 1em;
+  dt {
+    float: left;
+    width: 180px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  dd {
+    margin-left: 200px;
+    margin-bottom: 1em;
+  }
 }
 
 mark {
@@ -170,14 +173,14 @@ pre {
   overflow: auto;
   background: #F7FAFB;
   border-radius: 3px;
-}
-pre code {
-  font-size: inherit;
-  white-space: -moz-pre-wrap;
-  white-space: pre-wrap;
-  background: transparent;
-  border: none;
-  padding: 0;
+  code {
+    font-size: inherit;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
 }
 
 tt {
@@ -210,37 +213,45 @@ table {
   width: 100%;
   max-width: 100%;
   background-color: transparent;
-}
-table th, table td {
-  padding: 8px;
-  line-height: 20px;
-  text-align: left;
-  vertical-align: top;
-  border-top: 1px solid #efefef;
-}
-table th {
-  color: #000;
-}
-table caption + thead tr:first-child th, table caption + thead tr:first-child td {
-  border-top: 0;
-}
-table colgroup + thead tr:first-child th, table colgroup + thead tr:first-child td {
-  border-top: 0;
-}
-table thead:first-child tr:first-child th, table thead:first-child tr:first-child td {
-  border-top: 0;
-}
-table tbody + tbody {
-  border-top: 2px solid #efefef;
-}
-table table table {
-  background-color: #fff;
-}
-table tbody > tr:nth-child(odd) > td, table tbody > tr:nth-child(odd) > th {
-  background-color: #f6f6f6;
-}
-table.plain > tbody > tr:nth-child(odd) > td {
-  background: transparent;
+  th, td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #efefef;
+  }
+  th {
+    color: #000;
+  }
+  caption + thead tr:first-child {
+    th, td {
+      border-top: 0;
+    }
+  }
+  colgroup + thead tr:first-child {
+    th, td {
+      border-top: 0;
+    }
+  }
+  thead:first-child tr:first-child {
+    th, td {
+      border-top: 0;
+    }
+  }
+  tbody + tbody {
+    border-top: 2px solid #efefef;
+  }
+  table table {
+    background-color: #fff;
+  }
+  tbody > tr:nth-child(odd) > {
+    td, th {
+      background-color: #f6f6f6;
+    }
+  }
+  &.plain > tbody > tr:nth-child(odd) > td {
+    background: transparent;
+  }
 }
 
 tbody > tr:nth-child(odd) > th {
@@ -257,30 +268,29 @@ time {
   color: #9EABB3;
 }
 
-
 // Posts
 
 .posts {
-  a { text-decoration: none; }
-
-  .post:after {
-    display: block;
-    content: "";
-    width: 7px;
-    height: 7px;
-    border: #E7EEF2 1px solid;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    margin-left: -5px;
-    background: #fff;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-    box-shadow: #fff 0 0 0 5px;
+  a {
+    text-decoration: none;
   }
-  
   .post {
+    &:after {
+      display: block;
+      content: "";
+      width: 7px;
+      height: 7px;
+      border: #E7EEF2 1px solid;
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      margin-left: -5px;
+      background: #fff;
+      -webkit-border-radius: 100%;
+      -moz-border-radius: 100%;
+      border-radius: 100%;
+      box-shadow: #fff 0 0 0 5px;
+    }
     position: relative;
     //width: 80%;
     max-width: 700px;
@@ -297,12 +307,12 @@ time {
   word-wrap: break-word;
 }
 
-
 // Footer
 
 /* ==========================================================================
    8. Footer - The bottom of every page
    ========================================================================== */
+
 .site-footer {
   position: relative;
   margin: 8rem 0 0 0;
@@ -313,28 +323,29 @@ time {
   color: white;
   text-align: center;
   background: #ee4f4b;
-}
-.site-footer a {
-  color: #BBC7CC;
-  text-decoration: underline;
-}
-.site-footer a:hover {
-  color: #50585D;
+  a {
+    color: #BBC7CC;
+    text-decoration: underline;
+    &:hover {
+      color: #50585D;
+    }
+  }
 }
 
 .poweredby .icon-ghost {
   font-weight: 700;
   text-decoration: none;
-}
-.poweredby .icon-ghost:hover {
-  text-decoration: none;
-}
-.poweredby .icon-ghost:before {
-  font-size: 1rem;
-  margin-right: 0.2em;
+  &:hover {
+    text-decoration: none;
+  }
+  &:before {
+    font-size: 1rem;
+    margin-right: 0.2em;
+  }
 }
 
 /* The subscribe icon on the footer */
+
 .subscribe {
   width: 28px;
   height: 28px;
@@ -348,27 +359,28 @@ time {
   border-radius: 50px;
   background: #fff;
   transition: box-shadow 0.5s;
-}
-.subscribe:before {
-  color: #D2DEE3;
-  font-size: 10px;
-  position: absolute;
-  top: 2px;
-  left: 9px;
-  font-weight: bold;
-  transition: color 0.5s ease;
-}
-.subscribe:hover {
-  box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 3px;
-  transition: box-shadow 0.25s;
-}
-.subscribe:hover:before {
-  color: #50585D;
+  &:before {
+    color: #D2DEE3;
+    font-size: 10px;
+    position: absolute;
+    top: 2px;
+    left: 9px;
+    font-weight: bold;
+    transition: color 0.5s ease;
+  }
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 3px;
+    transition: box-shadow 0.25s;
+    &:before {
+      color: #50585D;
+    }
+  }
 }
 
 /* The RSS icon, inserted via icon font */
 /* Add a box shadow to on hover */
 /* CSS tooltip saying "Subscribe!" - initially hidden */
+
 .tooltip {
   opacity: 0;
   display: inline-block;
@@ -385,69 +397,71 @@ time {
   border-radius: 20px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   transition: opacity 0.3s ease, top 0.3s ease;
-}
-.tooltip:after {
-  content: "";
-  border-width: 5px 5px 0 5px;
-  border-style: solid;
-  border-color: #50585D transparent;
-  display: block;
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  margin-left: -5px;
-  z-index: 220;
-  width: 0;
+  &:after {
+    content: "";
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: #50585D transparent;
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    margin-left: -5px;
+    z-index: 220;
+    width: 0;
+  }
 }
 
 /* The little chiclet arrow under the tooltip, pointing down */
 /* On hover, show the tooltip! */
+
 .subscribe:hover .tooltip {
   opacity: 1;
   top: -33px;
 }
 
-
 // Footer
 
 /* The author credit area after the post */
+
 .post-footer {
   position: relative;
   margin: 4rem 0 0 0;
   padding: 4rem 0 0 0;
   border-top: #EBF2F6 1px solid;
-}
-.post-footer h4 {
-  font-size: 1.8rem;
-  margin: 0;
-}
-.post-footer p {
-  margin: 1rem 0;
-  font-size: 1.4rem;
-  line-height: 1.6em;
-}
-.post-footer .author {
-  margin-right: 180px;
-}
-.post-footer .share {
-  position: absolute;
-  top: 4rem;
-  right: 0;
-  width: 140px;
-}
-.post-footer .share a {
-  font-size: 1.8rem;
-  display: inline-block;
-  margin: 1.4rem 1.6rem 1.6rem 0;
-  color: #BBC7CC;
-}
-.post-footer .share a:hover {
-  color: #50585D;
+  h4 {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  p {
+    margin: 1rem 0;
+    font-size: 1.4rem;
+    line-height: 1.6em;
+  }
+  .author {
+    margin-right: 180px;
+  }
+  .share {
+    position: absolute;
+    top: 4rem;
+    right: 0;
+    width: 140px;
+    a {
+      font-size: 1.8rem;
+      display: inline-block;
+      margin: 1.4rem 1.6rem 1.6rem 0;
+      color: #BBC7CC;
+      &:hover {
+        color: #50585D;
+      }
+    }
+  }
 }
 
 // Utilities
+
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .bit-50 {
@@ -464,11 +478,9 @@ img {
 }
 
 @media only screen and (max-width: 900px) {
-
   blockquote {
     margin-left: 0;
   }
-
   #site-head {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -477,46 +489,41 @@ img {
     min-height: 240px;
     overflow: hidden;
   }
-
   .blog-title {
     font-size: 4rem;
     letter-spacing: -1px;
   }
-
   .blog-description {
     font-size: 1.7rem;
     line-height: 1.5em;
   }
-
   .post {
     font-size: 0.9em;
     line-height: 1.6em;
   }
-
-  .post-template .post {
-    padding-bottom: 1rem;
+  .post-template {
+    .post {
+      padding-bottom: 1rem;
+    }
+    .post-header {
+      padding: 40px 0;
+    }
   }
-  .post-template .post-header {
-    padding: 40px 0;
-  }
-
   h1 {
     font-size: 4.8rem;
     text-indent: -2px;
   }
-
   h2 {
     font-size: 3.8rem;
   }
-
   h3 {
     font-size: 3.3rem;
   }
-
   h4 {
     font-size: 2.8rem;
   }
 }
+
 /* ==========================================================================
    10. Media Queries - Smaller than 500px
    ========================================================================== */
@@ -526,13 +533,11 @@ img {
   #blog-logo img {
     max-height: 80px;
   }
-
   .inner, .pagination {
     width: auto;
     margin-left: 16px;
     margin-right: 16px;
   }
-
   .post {
     width: auto;
     margin-left: 16px;
@@ -540,66 +545,57 @@ img {
     font-size: 0.8em;
     line-height: 1.6em;
   }
-
   .blog-title {
     font-size: 3rem;
   }
-
   .blog-description {
     font-size: 1.5rem;
   }
-
   h1, h2 {
     font-size: 3rem;
     line-height: 1.1em;
     letter-spacing: -1px;
   }
-
   h3 {
     font-size: 2.8rem;
   }
-
   h4 {
     font-size: 2.3rem;
   }
-
-  .post-template .post {
-    padding-bottom: 0;
+  .post-template {
+    .post {
+      padding-bottom: 0;
+    }
+    .post-header {
+      padding: 30px 0;
+    }
   }
-  .post-template .post-header {
-    padding: 30px 0;
-  }
-
   .post-meta {
     font-size: 1.3rem;
   }
-
   .post-footer {
     padding: 4rem 0;
     text-align: center;
+    .author {
+      margin: 0 0 2rem 0;
+      padding: 0 0 1.6rem 0;
+      border-bottom: #EBF2F6 1px dashed;
+    }
+    .share {
+      position: static;
+      width: auto;
+      a {
+        margin: 1.4rem 0.8rem 0 0.8rem;
+      }
+    }
   }
-  .post-footer .author {
-    margin: 0 0 2rem 0;
-    padding: 0 0 1.6rem 0;
-    border-bottom: #EBF2F6 1px dashed;
-  }
-  .post-footer .share {
-    position: static;
-    width: auto;
-  }
-  .post-footer .share a {
-    margin: 1.4rem 0.8rem 0 0.8rem;
-  }
-
   .older-posts, .newer-posts {
     position: static;
     margin: 10px 0;
   }
-
   .page-number {
     display: block;
   }
-
   .site-footer {
     margin-top: 6rem;
     font-size: 1.1rem;
